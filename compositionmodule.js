@@ -48,6 +48,7 @@
       var templatePath;
       this.basePath = basePath1;
       this.outputPath = p.outputPath(this.basePath);
+      this.outputFileName = p.fileName(this.outputPath);
       templatePath = p.compositionTemplatePath(this.basePath);
       this.template = fs.readFileSync(templatePath, "utf-8");
       this.components = {};
@@ -94,6 +95,9 @@
 
     async digestFilename(name) {
       var tokens;
+      if (name === this.outputFileName) {
+        return;
+      }
       tokens = name.split(".");
       if (tokens.length === 1) {
         await this.digestDirectory(name);
@@ -164,9 +168,14 @@
 
   //###########################################################
   compositionmodule.autocompose = async function(basePath) {
-    var composition;
+    var composition, err;
     log("compositionmodule.autocompose");
-    composition = new Composition(basePath);
+    try {
+      composition = new Composition(basePath);
+    } catch (error) {
+      err = error;
+      return log(err);
+    }
     await composition.readComponents();
     await composition.writeResult();
   };

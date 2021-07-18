@@ -12,11 +12,11 @@
   //#############################################################################
   // console.log "debugmodule.initialize - nothing to do"
   debugmodule.modulesToDebug = {
-    unbreaker: true,
-    // cliargumentsmodule: true
-    compositionmodule: true
+    unbreaker: true
   };
 
+  // cliargumentsmodule: true
+  // compositionmodule: true
   // configmodule: true
   // mainprocessmodule: true
   // pathmodule: true

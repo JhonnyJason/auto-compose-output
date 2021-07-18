@@ -100,7 +100,16 @@
   pathmodule.resolve = p.resolve;
 
   pathmodule.extension = function(lePath) {
-    return p.extname(lePath).slice(1);
+    var extname;
+    extname = p.extname(lePath);
+    if (extname.length > 1) {
+      return extname.slice(1);
+    }
+    return "";
+  };
+
+  pathmodule.fileName = function(lePath) {
+    return p.basename(lePath);
   };
 
   module.exports = pathmodule;
